@@ -1,1 +1,18 @@
-%p= "Hello World, it's #{Time.now} at the server!"
+.container
+  .header
+    %ul.nav.nav-pills.pull-right
+      %li.active
+        %a{href: "#"} Home
+      %li
+        %a{href: "#"} About
+    %h3.text-muted WikiTrends
+  .jumbotron
+    %h3 Trend name
+    %p.lead Graph and some description
+  .row.marketing
+    .col-lg-12
+      - 3.times do
+        %h4 Some other trend
+        %p Description
+  .footer
+    %p &copy; Anna Kolpakova, Artem Nikolenko, Anton Lopuhin, Dmitry Zeldin, 2013
