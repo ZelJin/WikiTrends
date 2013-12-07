@@ -9,9 +9,7 @@ gem 'haml'
 
 #Rest client for gathering web-pages
 gem 'rest-client'
+gem 'json'
 
 #Nokogiri for web-pages parsing
 gem 'nokogiri'
-
-#Coderay for syntax highlighting
-gem 'coderay'

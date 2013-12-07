@@ -1,5 +1,21 @@
 - content_for(:body) do
   .jumbotron
     %h3 Returned result:
-    .row
-      = request_views(name)
+    %table.highchart{style: "width: 100%; height: 0%; display: none;",
+                            "data-graph-container-before" => 1, "data-graph-type" => "spline",
+                            "data-graph-xaxis-type" => "datetime"}
+      %thead
+        %tr
+          %th Date
+          %th Page views
+      %tbody
+        - data.sort.each do |key, value|
+          %tr
+            %td= key
+            %td= value
+
+- content_for(:scripts) do
+  :javascript
+    $(document).ready(function() {
+      $('table.highchart').highchartTable();
+    });

@@ -28,13 +28,7 @@ get '/api' do
 end
 
 post '/api' do
-  haml :api_result, locals: {name: params[:name]}
-end
+  raw_data = JSON.parse(request_views(params[:post][:name]))["daily_views"]
 
-get '/api/:name' do
-  if params[:name] != nil
-    haml :api_result, locals: {name: params[:name]}
-  else
-    haml :api
-  end
+  haml :api_result, locals: {data: raw_data}
 end

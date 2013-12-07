@@ -2,6 +2,6 @@
   .jumbotron
     %form{role: "form", action: "/api", method: "post"}
       .form-group
-        %label{for: "article-name"} Enter atricle name
-        %input.form-control#article-name{placeholder: "Article name"}
+        %label{for: "post_name"} Enter atricle name
+        %input.form-control#post_name{name: "post[name]", placeholder: "Article name"}
       %button.btn.btn-default{type: "submit"} Show me your magic!
