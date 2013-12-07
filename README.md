@@ -1,4 +1,4 @@
 WikiTrends
 ==========
 
-Analyse daily
+Analyse daily WikiPedia trends
