@@ -2,6 +2,8 @@ require 'rubygems'
 require 'bundler/setup'
 require 'sinatra'
 require 'sinatra/content_for'
+require_relative 'api.rb'
+require_relative 'parser.rb'
 
 get '/' do
   points = [
@@ -19,5 +21,20 @@ get '/' do
       {key: "2013-01-12", value: 700},
       {key: "2013-01-13", value: 215}]
   haml :index, locals: {points: points}
+end
 
+get '/api' do
+  haml :api
+end
+
+post '/api' do
+  haml :api_result, locals: {name: params[:name]}
+end
+
+get '/api/:name' do
+  if params[:name] != nil
+    haml :api_result, locals: {name: params[:name]}
+  else
+    haml :api
+  end
 end

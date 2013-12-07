@@ -6,7 +6,10 @@
     %link{href: "css/jumbotron.css", rel: "stylesheet"}
     =yield_content :css
   %body
-    =yield_content :body
+    .container
+      = haml :_header
+      =yield_content :body
+      = haml :_footer
     %script{src: "https://code.jquery.com/jquery.js"}
     %script{src: "js/bootstrap.min.js"}
     %script{src: "js/highcharts.js"}

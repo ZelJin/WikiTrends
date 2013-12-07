@@ -1,0 +1,7 @@
+- content_for(:body) do
+  .jumbotron
+    %form{role: "form", action: "/api", method: "post"}
+      .form-group
+        %label{for: "article-name"} Enter atricle name
+        %input.form-control#article-name{placeholder: "Article name"}
+      %button.btn.btn-default{type: "submit"} Show me your magic!
