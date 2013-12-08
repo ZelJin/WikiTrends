@@ -3,7 +3,6 @@ require 'bundler/setup'
 require 'sinatra'
 require 'sinatra/content_for'
 require_relative 'api.rb'
-require_relative 'parser.rb'
 
 get '/' do
   points = [
@@ -28,7 +27,11 @@ get '/api' do
 end
 
 post '/api' do
-  raw_data = JSON.parse(request_views(params[:post][:name]))["daily_views"]
+  raw_data = JSON.parse(request_views(params[:post][:name].tr(" ", "_")))["daily_views"]
 
   haml :api_result, locals: {data: raw_data}
+end
+
+get '/parse' do
+  parse_wikipedia_page
 end

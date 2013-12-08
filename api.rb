@@ -1,4 +1,5 @@
 require 'rest-client'
+require 'nokogiri'
 
 #API helpers
 helpers do
@@ -8,6 +9,16 @@ helpers do
       response
     else
       response.code
+    end
+  end
+
+  def parse_wikipedia_page()
+    page = Nokogiri.HTML(RestClient.get("http://en.wikipedia.org/wiki/User:West.andrew.g/Popular_pages"))
+    puts page.class
+    page.css('.wikitable a').each do |element|
+      if element[:title] != nil
+        puts element[:title]
+      end
     end
   end
 end
