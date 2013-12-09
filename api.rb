@@ -1,5 +1,7 @@
 require 'rest-client'
 require 'nokogiri'
+require 'mongo'
+include Mongo
 
 #API helpers
 helpers do
@@ -14,10 +16,13 @@ helpers do
 
   def parse_wikipedia_page()
     page = Nokogiri.HTML(RestClient.get("http://en.wikipedia.org/wiki/User:West.andrew.g/Popular_pages"))
-    puts page.class
+    client = MongoClient.new('localhost', 27017)
+    db = client["wikitrends"]
+    db.authenticate("wikitrends", "wiki_admin_passwd")
+    collection = db["articles"]
     page.css('.wikitable a').each do |element|
       if element[:title] != nil
-        puts element[:title]
+        collection.insert({name: element[:title], parse_date: Time.now.utc})
       end
     end
   end
