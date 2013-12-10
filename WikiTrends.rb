@@ -27,11 +27,24 @@ get '/api' do
 end
 
 post '/api' do
-  raw_data = JSON.parse(request_views(params[:post][:name].tr(" ", "_")))["daily_views"]
-
-  haml :api_result, locals: {data: raw_data}
+  haml :api_result, locals: {data: request_views(params[:post][:name])}
 end
 
 get '/parse' do
   parse_wikipedia_page
+end
+
+get '/views' do
+  client = MongoClient.new('localhost', 27017)
+  db = client["wikitrends"]
+  db.authenticate("wikitrends", "wiki_admin_passwd")
+  collection = db["articles"]
+  articles = collection.find
+  collection = db["views"]
+  i = 0
+  count = articles.count
+  articles.each do |article|
+    parse_article_views(article["name"], collection)
+    puts "#{i += 1} out of #{count}"
+  end
 end
