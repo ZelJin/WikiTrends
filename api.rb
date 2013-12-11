@@ -1,6 +1,7 @@
 require 'rest-client'
 require 'nokogiri'
 require 'mongo'
+require 'rss'
 include Mongo
 
 #API helpers
@@ -31,6 +32,15 @@ helpers do
     daily_views = request_views(name)
     daily_views.each do |key, value|
       collection.insert({name: name, date: key},{name: name, date: key, views: value}, {upsert: true})
+    end
+  end
+
+  def get_rss_feed(name)
+    response = RestClient.get("http://news.google.com/news?q=#{URI.escape(name.tr(" ", "_"))}&output=rss")
+    if response.code == 200
+      RSS::Parser.parse(response)
+    else
+      response.code
     end
   end
 end

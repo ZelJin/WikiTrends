@@ -1,0 +1,7 @@
+- content_for(:body) do
+  .jumbotron
+    %form{role: "form", action: "/rss", method: "post"}
+      .form-group
+        %label{for: "post_name"} Enter atricle name
+        %input.form-control#post_name{name: "post[name]", placeholder: "Article name"}
+      %button.btn.btn-default{type: "submit"} Get news feed!

@@ -1,0 +1,6 @@
+- content_for(:body) do
+  .jumbotron
+    %h3 Returned result:
+    - feed.items.each do |item|
+      .row
+        %p= item.description

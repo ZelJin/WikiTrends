@@ -30,6 +30,14 @@ post '/api' do
   haml :api_result, locals: {data: request_views(params[:post][:name])}
 end
 
+get '/rss' do
+  haml :rss
+end
+
+post '/rss' do
+  haml :rss_result, locals: {feed: get_rss_feed(params[:post][:name])}
+end
+
 get '/parse' do
   parse_wikipedia_page
 end
