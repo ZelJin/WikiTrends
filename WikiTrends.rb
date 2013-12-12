@@ -38,6 +38,14 @@ post '/rss' do
   haml :rss_result, locals: {feed: get_rss_feed(params[:post][:name])}
 end
 
+get '/news' do
+  haml :news
+end
+
+post '/news' do
+  haml :news_result, locals: {feed: get_news(params[:post][:name])}
+end
+
 get '/parse' do
   parse_wikipedia_page
 end

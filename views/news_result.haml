@@ -1,0 +1,11 @@
+- content_for(:body) do
+  .jumbotron
+    %h3 Returned result:
+    - feed.each do |item|
+      .row
+        %a{href: item["unescapedUrl"]}
+          %h4= item["title"]
+        - if item["image"] != nil
+          %img{src: item["image"]["url"], style: "width: 30%; float: left"}
+        %p= item["content"]
+      %hr

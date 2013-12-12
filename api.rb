@@ -35,10 +35,20 @@ helpers do
     end
   end
 
-  def get_rss_feed(name)
-    response = RestClient.get("http://news.google.com/news?q=#{URI.escape(name.tr(" ", "_"))}&output=rss")
+  def get_rss_feed(request)
+    response = RestClient.get("http://news.google.com/news?q=#{URI.escape(request)}&output=rss")
     if response.code == 200
       RSS::Parser.parse(response)
+    else
+      response.code
+    end
+  end
+
+  def get_news(request)
+    response = RestClient.get("https://ajax.googleapis.com/ajax/services/search/news?v=1.0&q=#{URI.escape(request)}")
+    if response.code == 200
+      puts response
+      JSON.parse(response)["responseData"]["results"]
     else
       response.code
     end

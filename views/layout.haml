@@ -7,9 +7,23 @@
     =yield_content :css
   %body
     .container
-      = haml :_header
+      .header
+        %ul.nav.nav-pills.pull-right
+          %li
+            %a{href: "/"} Home
+          %li
+            %a{href: "#"} About
+          %li
+            %a{href: "/api"} API Test
+          %li
+            %a{href: "/rss"} RSS Test
+          %li
+            %a{href: "news"} Google News Test
+        %a{href: "/"}
+          %h3.text-muted WikiTrends
       =yield_content :body
-      = haml :_footer
+      .footer
+        %p &copy; Anna Kolpakova, Artem Nikolenko, Anton Lopuhin, Dmitry Zeldin, 2013
     %script{src: "https://code.jquery.com/jquery.js"}
     %script{src: "js/bootstrap.min.js"}
     %script{src: "js/highcharts.js"}
