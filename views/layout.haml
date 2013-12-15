@@ -3,8 +3,6 @@
   %head
     %meta{name: "viewport", content: "width=device-width, initial-scale=1.0"}
     %link{href: "css/bootstrap.min.css", rel: "stylesheet"}
-    %link{href: "css/jumbotron.css", rel: "stylesheet"}
-    =yield_content :css
   %body
     .container
       .header
@@ -12,17 +10,17 @@
           %li
             %a{href: "/"} Home
           %li
-            %a{href: "#"} About
-          %li
             %a{href: "/api"} API Test
-          %li
-            %a{href: "/rss"} RSS Test
           %li
             %a{href: "news"} Google News Test
         %a{href: "/"}
           %h3.text-muted WikiTrends
+      %hr
+    .container
       =yield_content :body
+    .container
       .footer
+        %hr
         %p &copy; Anna Kolpakova, Artem Nikolenko, Anton Lopuhin, Dmitry Zeldin, 2013
     %script{src: "https://code.jquery.com/jquery.js"}
     %script{src: "js/bootstrap.min.js"}
