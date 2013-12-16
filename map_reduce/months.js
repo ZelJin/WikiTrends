@@ -154,7 +154,8 @@ while(cursor.hasNext()) {
         diff: record.value.diff,
         valid_date: record._id.date
     }
-    db.trends.insert(data);
+    db.trends.update({name: record._id.name, type: record.value.type, valid_date: record._id.date},
+        data, {upsert: true});
 }
 
 db.tmp_months.drop();
