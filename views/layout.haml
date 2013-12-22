@@ -6,16 +6,45 @@
   %body
     .container
       .header
-        %ul.nav.nav-pills.pull-right
-          %li
-            %a{href: "/"} Home
-          %li
-            %a{href: "/api"} API Test
-          %li
-            %a{href: "news"} Google News Test
-        %a{href: "/"}
-          %h3.text-muted WikiTrends
-      %hr
+        %nav.navbar.navbar-default
+          .navbar-header
+            %button.navbar-toggle{type: 'button', 'data-toggle' => 'collapse', 'data-target' => 'navbar-collapse'}
+              %span.sr-only Toggle navigation
+              %span.icon-bar
+              %span.icon-bar
+              %span.icon-bar
+            %a.navbar-brand{href: '/'} WikiTrends
+
+          .collapse.navbar-collapse#navbar-collapse
+            .btn-group.navbar-left
+              - if request.path_info == '/' or request.path_info == '/daily'
+                %button.btn.btn-active.navbar-btn{type: "button", onclick: "location.href='/daily'"}Daily
+              - else
+                %button.btn.btn-default.navbar-btn{type: "button", onclick: "location.href='/daily'"}Daily
+              - if request.path_info == '/weekly'
+                %button.btn.btn-active.navbar-btn{type: "button", onclick: "location.href='/weekly'"}Weekly
+              - else
+                %button.btn.btn-default.navbar-btn{type: "button", onclick: "location.href='/weekly'"}Weekly
+              - if request.path_info == '/monthly'
+                %button.btn.btn-active.navbar-btn{type: "button", onclick: "location.href='/monthly'"}Monthly
+              - else
+                %button.btn.btn-default.navbar-btn{type: "button", onclick: "location.href='/monthly'"}Monthly
+            %form.navbar-form.navbar-right{action: '/api', method: "post"}
+              .form-group
+                .input-group{style: "width: 200px"}
+                  %span.input-group-addon
+                    %span.glyphicon.glyphicon-search
+                  %input.form-control#post_name{name: "post[name]", placeholder: "Article name"}
+                  %span.input-group-btn
+                    %button.btn.btn-default{type: "submit"} Go!
+            %ul.nav.navbar-nav
+              %li
+                %a{href: "/"} Home
+              %li
+                %a{href: "/api"} API Test
+              %li
+                %a{href: "news"} Google News Test
+
     .container
       =yield_content :body
     .container

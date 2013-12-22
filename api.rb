@@ -45,4 +45,9 @@ helpers do
       response.code
     end
   end
+
+  def prettify_string(str)
+    prepositions = %w{a an the and but or for nor of}
+    str.split.each_with_index.map{|x, index| prepositions.include?(x) && index > 0 ? x : x.capitalize }.join(" ")
+  end
 end

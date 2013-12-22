@@ -7,6 +7,9 @@ gem 'sinatra-contrib'
 #Template engine
 gem 'haml'
 
+#Postgres
+gem 'pg'
+
 #MongoDB Driver
 gem 'mongo', git: 'git://github.com/mongodb/mongo-ruby-driver.git', branch: '1.x-stable'
 gem 'bson_ext'
