@@ -3,8 +3,19 @@ require 'bundler/setup'
 require 'sinatra/content_for'
 require 'haml'
 
-class WikiController < ApplicationController
+class WikiController < Sinatra::Base
+
+  helpers WikiHelper
   helpers Sinatra::ContentFor
+  set :views, File.expand_path('../../views', __FILE__)
+
+  configure :production, :develpoment do
+    enable :logging
+  end
+
+  not_found do
+    haml :error_404
+  end
 
   get '/' do
     redirect('/daily')
