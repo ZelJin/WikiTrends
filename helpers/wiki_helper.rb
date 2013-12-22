@@ -55,7 +55,7 @@ module WikiHelper
     client = MongoClient.new('localhost', 27017)
     db = client["wikitrends"]
     db.authenticate("wikitrends", "wiki_admin_passwd")
-      @trends = db["trends"].find({type: type}).sort({diff: -1, valid_date: 1}).limit(5).to_a
+      @trends = db["trends"].find({type: type}).sort({valid_date: -1, diff: -1}).limit(5).to_a
     @views = {}
     @news = {}
     @trends.each do |trend|
