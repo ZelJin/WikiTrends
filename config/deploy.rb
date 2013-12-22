@@ -10,9 +10,11 @@ set :port, 22
 set :deploy_to, "/home/#{user}/#{application}"
 set :deploy_via, :remote_cache
 set :use_sudo, false
+#set :ssh_options, { forward_agent: true }
 
-set :scm, :git
+set :scm, "git"
 set :repository,  "git@github.com:ZelJin/WikiTrends.git"
+set :branch, "master"
 
 default_run_options[:pty] = true
 
