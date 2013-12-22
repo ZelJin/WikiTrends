@@ -13,10 +13,8 @@ set :use_sudo, false
 
 set :scm, :git
 set :repository,  "git@github.com:ZelJin/WikiTrends.git"
-set :branch, "master"
 
 default_run_options[:pty] = true
-ssh_options[:forward_agent] = true
 
 after "deploy", "deploy:cleanup"
 after 'deploy:restart', 'unicorn:reload'

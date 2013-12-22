@@ -50,4 +50,17 @@ module WikiHelper
     prepositions = %w{a an the and but or for nor of}
     str.split.each_with_index.map{|x, index| prepositions.include?(x) && index > 0 ? x : x.capitalize }.join(" ")
   end
+
+  def request_trends(type)
+    client = MongoClient.new('localhost', 27017)
+    db = client["wikitrends"]
+    db.authenticate("wikitrends", "wiki_admin_passwd")
+      @trends = db["trends"].find({type: type}).sort({diff: -1, valid_date: 1}).limit(5).to_a
+    @views = {}
+    @news = {}
+    @trends.each do |trend|
+      @views[trend["name"]] = db["views"].find({name: trend["name"]})
+      @news[trend["name"]] = request_news(trend["name"])
+    end
+  end
 end

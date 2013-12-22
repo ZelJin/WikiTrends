@@ -5,66 +5,23 @@ require 'haml'
 
 class WikiController < ApplicationController
   helpers Sinatra::ContentFor
-  set :static, true
 
   get '/' do
-    client = MongoClient.new('localhost', 27017)
-    db = client["wikitrends"]
-    db.authenticate("wikitrends", "wiki_admin_passwd")
-    @trends = db["trends"].find.sort({valid_date: -1, diff: -1}).limit(10).to_a
-    @views = {}
-    @news = {}
-    @trends.each do |trend|
-      @views[trend["name"]] = db["views"].find({name: trend["name"]})
-      @news[trend["name"]] = request_news(trend["name"])
-    end
-    haml :index
+    redirect('/daily')
   end
 
   get '/daily' do
-    client = MongoClient.new('localhost', 27017)
-    db = client["wikitrends"]
-    db.authenticate("wikitrends", "wiki_admin_passwd")
-    @trends = db["trends"].find.sort({diff: -1}).limit(5).to_a
-    puts "Trends"
-    @views = {}
-    @news = {}
-    @trends.each do |trend|
-      @views[trend["name"]] = db["views"].find({name: trend["name"]})
-      @news[trend["name"]] = request_news(trend["name"])
-    end
+    request_trends('daily')
     haml :index
   end
 
   get '/weekly' do
-    client = MongoClient.new('localhost', 27017)
-    db = client["wikitrends"]
-    db.authenticate("wikitrends", "wiki_admin_passwd")
-    @trends = db["trends"].find.sort({diff: -1, valid_date: 1}).limit(5).to_a
-    puts "Trends"
-    @views = {}
-    @news = {}
-    @trends.each do |trend|
-      puts "I've been there"
-      @views[trend["name"]] = db["views"].find({name: trend["name"]})
-      @news[trend["name"]] = request_news(trend["name"])
-    end
+    request_trends('weekly')
     haml :index
   end
 
   get '/monthly' do
-    client = MongoClient.new('localhost', 27017)
-    db = client["wikitrends"]
-    db.authenticate("wikitrends", "wiki_admin_passwd")
-    @trends = db["trends"].find.sort({diff: -1}).limit(5).to_a
-    puts "Trends"
-    @views = {}
-    @news = {}
-    @trends.each do |trend|
-      puts "I've been there"
-      @views[trend["name"]] = db["views"].find({name: trend["name"]})
-      @news[trend["name"]] = request_news(trend["name"])
-    end
+    request_trends('monthly')
     haml :index
   end
 
