@@ -8,7 +8,7 @@ get '/' do
   client = MongoClient.new('localhost', 27017)
   db = client["wikitrends"]
   db.authenticate("wikitrends", "wiki_admin_passwd")
-  @trends = db["trends"].find.sort({diff: -1}).limit(5).to_a
+  @trends = db["trends"].find.sort({valid_date: -1, diff: -1}).limit(10).to_a
   @views = {}
   @news = {}
   @trends.each do |trend|
@@ -27,7 +27,6 @@ get '/daily' do
   @views = {}
   @news = {}
   @trends.each do |trend|
-    puts "I've been there"
     @views[trend["name"]] = db["views"].find({name: trend["name"]})
     @news[trend["name"]] = request_news(trend["name"])
   end

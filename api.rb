@@ -22,7 +22,10 @@ helpers do
     db.authenticate("wikitrends", "wiki_admin_passwd")
     page.css('.wikitable a').each do |element|
       if element[:title] != nil
-        db["articles"].update({name: element[:title]}, {name: element[:title], parse_date: Time.now.utc}, {upsert: true})
+        db["articles"].update({name: element[:title].downcase},
+                              {name: element[:title].downcase,
+                               parse_date: Time.now.utc},
+                              {upsert: true})
       end
     end
   end
@@ -30,7 +33,7 @@ helpers do
   def parse_views(name, collection)
     daily_views = request_views(name)
     daily_views.each do |key, value|
-      collection.insert({name: name, date: key}, {name: name, date: key, views: value}, {upsert: true})
+      collection.update({name: name.downcase, date: key}, {name: name.downcase, date: key, views: value}, {upsert: true})
     end
   end
 
@@ -42,5 +45,4 @@ helpers do
       response.code
     end
   end
-
 end
