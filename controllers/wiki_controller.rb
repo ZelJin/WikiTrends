@@ -57,16 +57,19 @@ class WikiController < Sinatra::Base
   end
 
   get '/views' do
-    client = MongoClient.new('localhost', 27017)
-    db = client["wikitrends"]
-    db.authenticate("wikitrends", "wiki_admin_passwd")
-    articles = db["articles"].find
-    i = 0
-    count = articles.count
-    articles.each do |article|
-      parse_views(article["name"], db["views"])
-      puts "#{i += 1} out of #{count}"
+    Thread.new do
+      client = MongoClient.new('localhost', 27017)
+      db = client["wikitrends"]
+      db.authenticate("wikitrends", "wiki_admin_passwd")
+      articles = db["articles"].find
+      i = 0
+      count = articles.count
+      articles.each do |article|
+        parse_views(article["name"], db["views"])
+        puts "#{i += 1} out of #{count}"
+      end
     end
+    haml :views
   end
 end
 
