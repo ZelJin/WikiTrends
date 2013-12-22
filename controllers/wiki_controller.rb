@@ -53,7 +53,10 @@ class WikiController < Sinatra::Base
   end
 
   get '/parse' do
-    parse_wikipedia_page
+    Thread.new do
+      parse_wikipedia_page
+    end
+    haml :wait
   end
 
   get '/views' do
@@ -69,7 +72,7 @@ class WikiController < Sinatra::Base
         puts "#{i += 1} out of #{count}"
       end
     end
-    haml :views
+    haml :wait
   end
 end
 
