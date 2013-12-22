@@ -5,7 +5,7 @@ require 'rss'
 include Mongo
 
 #helpers
-helpers do
+module WikiHelper
   def request_views(name)
     response = RestClient.get "http://stats.grok.se/json/en/latest90/#{URI.escape(name.tr(" ", "_"))}"
     if response.code == 200
