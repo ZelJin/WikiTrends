@@ -2,7 +2,7 @@
 %html
   %head
     %meta{name: "viewport", content: "width=device-width, initial-scale=1.0"}
-    %link{href: "css/bootstrap.min.css", rel: "stylesheet"}
+    %link{href: "/css/bootstrap.min.css", rel: "stylesheet"}
   %body
     .container
       .header
@@ -16,19 +16,31 @@
             %a.navbar-brand{href: '/'} WikiTrends
 
           .collapse.navbar-collapse#navbar-collapse
+            %p.navbar-text.navbar-left Type:
             .btn-group.navbar-left
-              - if request.path_info == '/' or request.path_info == '/daily'
-                %button.btn.btn-active.navbar-btn{type: "button", onclick: "location.href='/daily'"}Daily
+              - if @type == 'daily'
+                %button.btn.btn-active.navbar-btn{type: "button", onclick: "location.href='/#{@db}/daily'"}Daily
               - else
-                %button.btn.btn-default.navbar-btn{type: "button", onclick: "location.href='/daily'"}Daily
-              - if request.path_info == '/weekly'
-                %button.btn.btn-active.navbar-btn{type: "button", onclick: "location.href='/weekly'"}Weekly
+                %button.btn.btn-default.navbar-btn{type: "button", onclick: "location.href='/#{@db}/daily'"}Daily
+              - if @type == 'weekly'
+                %button.btn.btn-active.navbar-btn{type: "button", onclick: "location.href='/#{@db}/weekly'"}Weekly
               - else
-                %button.btn.btn-default.navbar-btn{type: "button", onclick: "location.href='/weekly'"}Weekly
-              - if request.path_info == '/monthly'
-                %button.btn.btn-active.navbar-btn{type: "button", onclick: "location.href='/monthly'"}Monthly
+                %button.btn.btn-default.navbar-btn{type: "button", onclick: "location.href='/#{@db}/weekly'"}Weekly
+              - if @type == 'monthly'
+                %button.btn.btn-active.navbar-btn{type: "button", onclick: "location.href='/#{@db}/monthly'"}Monthly
               - else
-                %button.btn.btn-default.navbar-btn{type: "button", onclick: "location.href='/monthly'"}Monthly
+                %button.btn.btn-default.navbar-btn{type: "button", onclick: "location.href='/#{@db}/monthly'"}Monthly
+            %p.navbar-text.navbar-left DB:
+            .btn-group.navbar-left
+              - if @db == 'postgres'
+                %button.btn.btn-active.navbar-btn{type: "button", onclick: "location.href='/postgres/#{@type}'"} PostgreSQL
+              - else
+                %button.btn.btn-default.navbar-btn{type: "button", onclick: "location.href='/postgres/#{@type}'"} PostgreSQL
+              - if @db == 'mongo'
+                %button.btn.btn-active.navbar-btn{type: "button", onclick: "location.href='/mongo/#{@type}'"} MongoDB
+              - else
+                %button.btn.btn-default.navbar-btn{type: "button", onclick: "location.href='/mongo/#{@type}'"} MongoDB
+
             %form.navbar-form.navbar-right{action: '/api', method: "post"}
               .form-group
                 .input-group{style: "width: 200px"}
@@ -39,11 +51,9 @@
                     %button.btn.btn-default{type: "submit"} Go!
             %ul.nav.navbar-nav
               %li
-                %a{href: "/"} Home
+                %a{href: "/api/test"} API Test
               %li
-                %a{href: "/api"} API Test
-              %li
-                %a{href: "news"} Google News Test
+                %a{href: "/api/news"} Google News Test
 
     .container
       =yield_content :body
@@ -52,7 +62,7 @@
         %hr
         %p &copy; Anna Kolpakova, Artem Nikolenko, Anton Lopuhin, Dmitry Zeldin, 2013
     %script{src: "https://code.jquery.com/jquery.js"}
-    %script{src: "js/bootstrap.min.js"}
-    %script{src: "js/highcharts.js"}
-    %script{src: "js/jquery.highchartTable-min.js"}
+    %script{src: "/js/bootstrap.min.js"}
+    %script{src: "/js/highcharts.js"}
+    %script{src: "/js/jquery.highchartTable-min.js"}
     =yield_content :scripts
