@@ -1,18 +1,9 @@
-require 'rubygems'
-require 'sinatra/base'
-Dir.glob('./{helpers,controllers}/*.rb').each { |file| require file}
+require './app'
+
 use Rack::Static, :urls => ['/css', '/fonts', '/js'], root: 'public'
 
 map '/' do
-  run WikiController.new
-end
-
-map '/postgres' do
-  run PostgresController.new
-end
-
-map '/mongo' do
-  run MongoController.new
+  run ApplicationController.new
 end
 
 map '/api' do

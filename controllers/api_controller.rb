@@ -4,8 +4,9 @@ require 'sinatra/content_for'
 require 'haml'
 
 class ApiController < Sinatra::Base
+  register Sinatra::ActiveRecordExtension
 
-  helpers WikiHelper
+  helpers ApplicationHelper
   helpers Sinatra::ContentFor
   set :views, File.expand_path('../../views', __FILE__)
   set :root, File.expand_path('../', __FILE__)
@@ -16,22 +17,6 @@ class ApiController < Sinatra::Base
 
   not_found do
     haml :error_404
-  end
-
-  get '/test' do
-    haml :api
-  end
-
-  post '/test' do
-    haml :api_result, locals: {data: request_views(params[:post][:name])}
-  end
-
-  get '/news' do
-    haml :news
-  end
-
-  post '/news' do
-    haml :news_result, locals: {feed: request_news(params[:post][:name])}
   end
 
   get '/articles' do

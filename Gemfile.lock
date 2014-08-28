@@ -1,18 +1,22 @@
-GIT
-  remote: git://github.com/mongodb/mongo-ruby-driver.git
-  revision: 7d77b75603735eb8ff0efed034928f0d136cdad3
-  branch: 1.x-stable
-  specs:
-    bson (1.9.2)
-    bson_ext (1.9.2)
-      bson (~> 1.9.2)
-    mongo (1.9.2)
-      bson (~> 1.9.2)
-
 GEM
   remote: https://rubygems.org/
   specs:
+    activemodel (4.1.5)
+      activesupport (= 4.1.5)
+      builder (~> 3.1)
+    activerecord (4.1.5)
+      activemodel (= 4.1.5)
+      activesupport (= 4.1.5)
+      arel (~> 5.0.0)
+    activesupport (4.1.5)
+      i18n (~> 0.6, >= 0.6.9)
+      json (~> 1.7, >= 1.7.7)
+      minitest (~> 5.1)
+      thread_safe (~> 0.1)
+      tzinfo (~> 1.1)
+    arel (5.0.1.20140414130214)
     backports (3.3.5)
+    builder (3.2.2)
     capistrano (2.15.5)
       highline
       net-scp (>= 1.0.0)
@@ -24,10 +28,12 @@ GEM
     haml (4.0.4)
       tilt
     highline (1.6.20)
+    i18n (0.6.11)
     json (1.8.1)
     kgio (2.8.1)
     mime-types (2.0)
     mini_portile (0.5.2)
+    minitest (5.4.0)
     multi_json (1.8.2)
     net-scp (1.1.2)
       net-ssh (>= 2.6.5)
@@ -38,12 +44,14 @@ GEM
       net-ssh (>= 2.6.5)
     nokogiri (1.6.0)
       mini_portile (~> 0.5.0)
+    pg (0.17.1)
     rack (1.5.2)
     rack-protection (1.5.1)
       rack
     rack-test (0.6.2)
       rack (>= 1.0)
     raindrops (0.12.0)
+    rake (10.3.2)
     rest-client (1.6.7)
       mime-types (>= 1.16)
     rvm-capistrano (1.5.1)
@@ -52,6 +60,9 @@ GEM
       rack (~> 1.4)
       rack-protection (~> 1.4)
       tilt (~> 1.3, >= 1.3.4)
+    sinatra-activerecord (2.0.2)
+      activerecord (>= 3.2)
+      sinatra (~> 1.0)
     sinatra-contrib (1.4.2)
       backports (>= 2.0)
       multi_json
@@ -59,7 +70,11 @@ GEM
       rack-test
       sinatra (~> 1.4.0)
       tilt (~> 1.3)
+    sqlite3 (1.3.9)
+    thread_safe (0.3.4)
     tilt (1.4.1)
+    tzinfo (1.2.2)
+      thread_safe (~> 0.1)
     unicorn (4.7.0)
       kgio (~> 2.6)
       rack
@@ -69,15 +84,17 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  bson_ext
   capistrano (~> 2.15)
   capistrano-unicorn
   haml
   json
-  mongo!
   nokogiri
+  pg
+  rake
   rest-client
   rvm-capistrano
   sinatra
+  sinatra-activerecord
   sinatra-contrib
+  sqlite3
   unicorn
